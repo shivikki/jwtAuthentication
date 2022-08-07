@@ -25,6 +25,9 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 	 @Autowired
 	 private JwtAuthenticationFilter jwtFilter;
 	 
+	 @Autowired
+	 private AuthenticationEntryPoint entryPoint;
+	 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -36,13 +39,16 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.antMatchers("/token").permitAll()
 		.anyRequest().authenticated()
 		.and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.exceptionHandling().authenticationEntryPoint(entryPoint);
 		//url defined - which should be permitted
 		//csrf disabled
 		//cors disable 
 		//through antMatcher specify which all url weil be permitted
 		//anyRewuest () all other request needsa to be authenticated
 		//and() - if any other config needs to br done
+		//exceptionHandling - handle unauthorized requests
 		
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
