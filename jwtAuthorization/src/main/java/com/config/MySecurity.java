@@ -1,5 +1,7 @@
 package com.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.service.CustomerUserDetailService;
 
@@ -36,7 +41,7 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.cors()
 		.disable()
 		.authorizeRequests()
-		.antMatchers("/token").permitAll()
+		.antMatchers("/token","/api/welcome").permitAll() //mention url for which authentication is not requird
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -68,5 +73,20 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		return super.authenticationManager();
 	}
 	
+	@Bean//to prevent cors error
+	public CorsConfigurationSource corsConfigurationSource() {
+		
+		final CorsConfiguration config=new CorsConfiguration();
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200/*"));
+		
+		config.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS","DELETE","PUT","PATCH"));
+		config.setAllowCredentials(true);
+		config.setAllowedHeaders(Arrays.asList("Authorization","Cache-Control","Content-Type"));
+		
+		final UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return source;
+		
+	}
 	//in pom file add 2 de[endency
 }

@@ -1,0 +1,40 @@
+<div class="customContainer">
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6 offset-md-3 offset-lg-3 offset-sm-3 textCenter mt-2">
+            <h1>Login Here !!!</h1>
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+
+            <!--login form-->
+            <br><br><br>
+            <form (ngSubmit)="submitData()">
+                <!--ngSubmit() used with form tag-->
+                <mat-form-field class="example-full-width" appearance="fill" style="align-items: center">
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput required [(ngModel)]="credentials.username" name="username">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width" appearance="fill" style="align-items: center">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput [(ngModel)]="credentials.password" name="password"> 
+                </mat-form-field>
+
+                <br>
+                <div class="container">
+                    <button mat-raised-button color="primary" type="submit" class="mx-2 px-4">Login</button>
+                    <button mat-raised-button color="accent" type="reset">Register</button>
+                </div>
+                <br>
+                <p>{{credentials.username+ credentials.password}}</p>
+            </form>
+
+
+
+        </div>
+
+        <br>
+
+
+    </div>
+
+</div>
