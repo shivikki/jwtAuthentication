@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -41,7 +42,7 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.cors()
 		.disable()
 		.authorizeRequests()
-		.antMatchers("/token","/api/welcome").permitAll() //mention url for which authentication is not requird
+		.antMatchers("/token","/api/addUser").permitAll() //mention url for which authentication is not requird
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -89,4 +90,19 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		
 	}
 	//in pom file add 2 de[endency
+	
+	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.antMatcher("/**").exceptionHandling().authenticationEntryPoint(entryPoint).and()
+//		.authorizeRequests()
+//		.antMatchers("/api/getUserByEmail","/token","/api/addUser")
+//		.permitAll()
+//		.antMatchers("/**").denyAll().and()
+//		.addFilterAt(jwtFilter, AbstractPreAuthenticatedProcessingFilter.class).exceptionHandling()
+//		.and().csrf().disable().headers().disable();
+//		
+//	}
+	
+	
 }

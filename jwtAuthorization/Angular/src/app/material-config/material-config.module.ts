@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-
-
-const materialCom=[
+import {MatToolbarModule} from '@angular/material/toolbar';
+const materialConfig=[
   MatButtonModule,
-  MatToolbarModule,
-  MatIconModule,
   MatInputModule,
-  MatFormFieldModule
+  MatIconModule,
+  MatFormFieldModule,
+  MatToolbarModule
 ]
 
 @NgModule({
@@ -20,13 +18,13 @@ const materialCom=[
   imports: [
     CommonModule,
     MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
     MatInputModule,
-    MatFormFieldModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    materialConfig
+    
   ],
-  exports:[
-    materialCom
-  ]
+  exports:[materialConfig]
 })
 export class MaterialConfigModule { }

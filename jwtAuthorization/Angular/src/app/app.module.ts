@@ -6,36 +6,41 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialConfigModule } from './material-config/material-config.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { DasboardComponent } from './components/dasboard/dasboard.component';
-import { HomeComponent } from './components/home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './components/footer/footer.component';
+import { SignupComponent } from './components/pages/signup/signup.component';
+import { LoginComponent } from './components/pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginService } from './services/login.service';
-import { AuthGuard } from './guards/auth.guard';
-import { AuthInterceptor } from './services/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './components/pages/home/home.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
+import { AuthInterceptor } from './components/services/authInterceptor';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    FooterComponent,
+    SignupComponent,
     LoginComponent,
-    DasboardComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialConfigModule,
-    NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
+
   ],
-
-
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}], 
-  //all services mentionef. multi true used means multiple interceptor can be used
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

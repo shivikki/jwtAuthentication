@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="offset-lg-3 offset-md-3 offset-sm-3 col-lg-6 col-md-6 col-sm-6">
+        <br><br>
+        <div id="profile" class="text-center">
+            <mat-icon class="customIconSize" color="primary">account_circle</mat-icon>
+        </div>
+        <h1 class="text-center"> Login here</h1>
+
+
+        <form #loginForm="ngForm" (ngSubmit)="submitRegistration(loginForm)">
+
+            <!--enter email id-->
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter Here" type="email" autocomplete="off" [(ngModel)]="userLogin.email"
+                    name="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #emailVal="ngModel">
+            </mat-form-field>
+            <small class="example-full-width" style="display:flex" *ngIf="emailVal.invalid
+            && emailVal.touched " class="alert alert-danger">
+                Enter valid email id
+            </small>
+
+
+            <!--password-->
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Enter Here" type="password" autocomplete="off"
+                    [(ngModel)]="userLogin.password" name="password" minlength="3" maxlength="10" #passwordVal="ngModel"
+                    required>
+            </mat-form-field>
+            <br>
+            <small class="example-full-width" style="display:flex" *ngIf="passwordVal.invalid && passwordVal.touched"
+                class="alert alert-danger">
+                Password can have minimum 3 and maximum 10 characters.
+            </small>
+
+            <div class="container mt-3">
+                <button mat-raised-button color="primary" type="submit">Login</button>
+                <button mat-raised-button color="accent" style="float:right">Reset</button>
+            </div>
+
+        </form>
+
+        <br><br>
+        <small class="example-full-width" style="display:flex" *ngIf="!validUser" class="alert alert-danger">
+            Invalid credententials. Please try again.
+        </small>
+
+    </div>
+
+
+    <!--modal (ng-template can be sed if ngb bootstrap installed)-->
+    <!-- <ng-template #mymodal let-modal>
+        <div *ngIf="!responseRest.validationFlag" class="mt-2">
+            <div style="display:flex">
+                <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">SUCCESS</span>
+            </div>
+            <hr>
+            <div class="modal-body">
+                {{responseRest.validationStatus}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-raised-button color="primary" (click)="modal.close('Save click')">Ok</button>
+            </div>
+        </div>
+
+
+        <div *ngIf="responseRest.validationFlag" class="mt-2">
+            <div style="display:flex">
+                <mat-icon color="warn" class="mx-2">report_problem</mat-icon><span style="font-weight:bold">ALERT</span>
+            </div>
+            <hr>
+            <div class="modal-body">
+                {{responseRest.validationStatus}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-raised-button color="warn" (click)="modal.close('Save click')">Ok</button>
+            </div>
+        </div>
+    </ng-template> -->
+</div>

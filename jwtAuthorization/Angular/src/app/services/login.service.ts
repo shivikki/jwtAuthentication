@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
 
+  CurrentUser:any;
   url="http://localhost:8080";
   
   //import httpClient in service
@@ -44,4 +45,7 @@ export class LoginService {
   getToken(){
     return localStorage.getItem('token');
   }
+
+
+  //get currernt User details
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,18 +7,9 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class NavbarComponent implements OnInit {
 
-  public loggedIn=false;
-
-  constructor(private loginServe:LoginService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.loggedIn=this.loginServe.isLoggedIn();
   }
 
-  logoutUser(){
-    this.loginServe.logout();
-    //relaod page then only token changes will reflect'
-    //reloads automatically after logout
-    location.reload();
-  }
 }

@@ -1,0 +1,133 @@
+<br>
+<div class="row">
+    <div class="offset-lg-3 offset-md-3 offset-sm-3 col-lg-6 col-md-6 col-sm-6">
+        <div id="profile" class="text-center">
+            <mat-icon class="customIconSize" color="primary">account_circle</mat-icon>
+        </div>
+        <h1 class="text-center">Register Here !!!</h1>
+
+        <!--form starts-->
+        <br>
+        <form class="register-form text-center " (ngSubmit)="submitRegistration(mymodal,userForm)" #userForm="ngForm">
+            <!--ngForm used for form validation-->
+            <mat-form-field class="example-full-width" appearance="outline">
+                <!--appearance can be outline/fill-->
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Enter Here" autocomplete="off" [(ngModel)]="userRegister.username" required
+                    name="username"  #usernameVal="ngModel">
+                <!--#username used for css based validation. -->
+            </mat-form-field>
+            <br>
+            <small class="example-full-width" style="display:flex"
+             *ngIf="usernameVal.invalid  && usernameVal.touched"
+                class="alert alert-danger">
+                Enter valid username
+            </small>
+
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Enter Here" type="password" autocomplete="off"
+                    [(ngModel)]="userRegister.password" name="password" minlength="3" maxlength="10"
+                    #passwordVal="ngModel" required>
+            </mat-form-field>
+            <br>
+            <small class="example-full-width" style="display:flex" *ngIf="passwordVal.invalid && passwordVal.touched"
+                class="alert alert-danger">
+                Password can have minimum 3 and maximum 10 characters.
+            </small>
+
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter Here" type="email" autocomplete="off"
+                    [(ngModel)]="userRegister.email" name="email" required
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"  #emailVal="ngModel">
+                <mat-hint align="start"><strong>Email should be unique</strong> </mat-hint>
+
+            </mat-form-field>
+            <small class="example-full-width" style="display:flex" *ngIf="emailVal.invalid
+            && emailVal.touched "
+                class="alert alert-danger">
+                Enter valid email id
+            </small>
+
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="Enter Here" autocomplete="off" [(ngModel)]="userRegister.firstName"
+                    name="firstName" required #firstnameVal="ngModel">
+            </mat-form-field>
+            <small class="example-full-width" style="display:flex" *ngIf="firstnameVal.invalid
+            && firstnameVal.touched "
+                class="alert alert-danger">
+                Enter valid first name.
+            </small>
+
+
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Enter Here" autocomplete="off" [(ngModel)]="userRegister.lastName"
+                    name="lastName" required #lastnameVal="ngModel">
+            </mat-form-field>
+            <small class="example-full-width" style="display:flex" *ngIf="lastnameVal.invalid
+            && lastnameVal.touched "
+                class="alert alert-danger">
+                Enter valid first name.
+            </small>
+
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input matInput placeholder="Enter Here" autocomplete="off" [(ngModel)]="userRegister.phone"
+                    name="phone" type="tel" required pattern="^((\\+91-?)|0)?[0-9]{10}$" 
+                    #phoneVal="ngModel" >
+            </mat-form-field>
+            <small class="example-full-width" style="display:flex" *ngIf="phoneVal.invalid
+            && phoneVal.touched "
+                class="alert alert-danger">
+                Enter valid phone number.
+            </small>
+
+
+            <br><br>
+
+            <div class="container text-center">
+                <button mat-raised-button color="primary" style="margin-right:10px ;" type="submit">Register </button>
+                <button mat-raised-button color="accent" class="pr-4 pl-4">Reset </button>
+            </div>
+            {{userRegister | json}}
+        </form>
+
+
+
+    </div>
+
+
+    <!--modal (ng-template can be sed if ngb bootstrap installed)-->
+    <ng-template #mymodal let-modal>
+        <div *ngIf="!responseRest.validationFlag" class="mt-2">
+            <div style="display:flex">
+                <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">SUCCESS</span>
+            </div>
+            <hr>
+            <div class="modal-body">
+                {{responseRest.validationStatus}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-raised-button color="primary" (click)="modal.close('Save click')">Ok</button>
+            </div>
+        </div>
+
+
+        <div *ngIf="responseRest.validationFlag" class="mt-2">
+            <div style="display:flex">
+                <mat-icon color="warn" class="mx-2">report_problem</mat-icon><span style="font-weight:bold">ALERT</span>
+            </div>
+            <hr>
+            <div class="modal-body">
+                {{responseRest.validationStatus}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-raised-button color="warn" (click)="modal.close('Save click')">Ok</button>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

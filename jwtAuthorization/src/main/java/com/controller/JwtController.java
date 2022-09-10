@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.helper.JwtHelper;
 import com.modal.JwtRequest;
 import com.modal.JwtResponse;
+import com.modal.User;
 import com.service.CustomerUserDetailService;
 
 @RestController //tp generate token for 1st time
@@ -30,19 +31,20 @@ public class JwtController {
 	private AuthenticationManager authManager;
 	
 	@RequestMapping(value="/token",method=RequestMethod.POST)//use url for which access check is not required
-	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception{
+	public ResponseEntity<?> generateToken(@RequestBody User user) throws Exception{
 		//jwtRequest contains user data
-		System.out.println(jwtRequest);
+		System.out.println(user+" input");
 		try {
 			//authenticate username pass
-			this.authManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+			this.authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 			
 			
 			
 		}catch (Exception e) {
-			throw new Exception("Bad Credentials");
+			//throw new Exception("Bad Credentials");
+			return ResponseEntity.ok(new JwtResponse("BAD CREDENTIALS"));
 		}
-		UserDetails userDetails= this.customUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
+		UserDetails userDetails= this.customUserDetailsService.loadUserByUsername(user.getEmail());
 		//Implementations are not used directly by Spring Security for security purposes. Theysimply store user information which is later encapsulated into Authenticationobjects. This allows non-security related user information (such as email addresses,telephone numbers etc) to
 		//be stored in a convenient location. 
 		
