@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/internal/Subject';
 import { getUserByEmail, roleDetails, token } from 'src/app/helper/api-constant';
 import { LoginService } from '../../services/login.service';
 
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
     email: ""
   }
   public validUser=true;
+
   constructor(private loginServ: LoginService, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,8 +38,9 @@ export class LoginComponent implements OnInit {
           this.loginServ.setToken(tokenRX.token);
           //this.loginServ.setuserDetails(this.userLogin);
           this.validUser=true;
-          //this.getUserRoles();
+          
           this.getCurrentUserRest();
+          //this.getUserRoles();
 
         }
         console.log(tokenRX.token, "adter login");
@@ -54,15 +57,18 @@ export class LoginComponent implements OnInit {
       (data) => {
         var roleData: any = data;
         this.loginServ.setRoleTagged(roleData);
+        console.log("role set",this.loginServ.getRoleTagged())
         console.log("roles", data);
         if (roleData != null && roleData.length != 0) {
-          if (roleData[0].roleName = 'Nornal') {
-            console.log("noraml user");
+          if (roleData[0].roleName == 'Normal') {
+            console.log("normal user");
+            this.loginServ.loginStatus.next(true);
             this.router.navigate(["/profile"]);
           }
-          else if (roleData[0].roleName = 'Admin') {
+          else if (roleData[0].roleName == 'Admin') {
             console.log("Admin user");
-            this.router.navigate(["/dashboard"]);
+            this.loginServ.loginStatus.next(true); //subcribe this in navbar
+            this.router.navigate(["/admin"]);
           }
           else {
             console.log("No user role tagged");
@@ -93,7 +99,8 @@ export class LoginComponent implements OnInit {
         console.log(data,"current user");
         var currUser:any=data;
         this.loginServ.setCurrentUser(currUser);
-        this.router.navigate(["/profile"]);
+        this.getUserRoles();
+       // this.router.navigate(["/profile"]);
       },
       (error)=>{
         console.error(error);

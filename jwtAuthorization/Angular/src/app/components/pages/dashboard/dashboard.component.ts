@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  public currentUser:any;
+  public role:any;
+  constructor(private loginServ:LoginService) { }
 
   ngOnInit(): void {
+    this.currentUser=this.loginServ.returnUser();
+    console.log(this.currentUser,"admin ");
+
+    this.role=this.loginServ.getRoleTagged();
+    console.log("role",this.role)
   }
 
 }

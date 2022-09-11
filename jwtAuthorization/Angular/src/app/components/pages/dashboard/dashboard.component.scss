@@ -1,0 +1,12 @@
+.table{
+    width:100%;
+    border-collapse: collapse;
+}
+.table tr td {
+    padding:1%;
+    border:1px solid #4caf50;//to avoid double border
+    border-collapse: collapse;
+}
+td:first-child{
+    font-weight: bold;
+}

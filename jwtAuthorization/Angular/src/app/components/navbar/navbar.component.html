@@ -1,21 +1,34 @@
 <div>
-    <mat-toolbar color="accent">
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span routerLink="/login" class="cursorPointer">Quizzer</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="login" class="mx-2"
-        routerLink="login">
-          <span>Login</span>
-        </button>
-        <button mat-icon-button class="example-icon favorite-icon mx-2" aria-label="register"
-        routerLink="signup">
-            <span>Register</span>
-          </button>
-        <button mat-icon-button class="example-icon" aria-label="logout" data-toogle
-        title="Logout" [hidden]=true>
-            <mat-icon>power_settings_new</mat-icon>
-        </button>
-    </mat-toolbar>
+  <mat-toolbar color="accent">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span routerLink="/login" class="cursorPointer">Quizzer</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="login" class="mx-2" routerLink="login"
+      *ngIf="!isUserAct">
+      <span>Login</span>
+    </button>
+
+  
+
+    <button mat-icon-button class="example-icon favorite-icon mx-2" aria-label="register" 
+    *ngIf="!isUserAct" routerLink="signup">
+      <span>Register</span>
+    </button>
+
+    
+    <!-- <button mat-icon-button class="example-icon favorite-icon mx-2" aria-label="register"
+    *ngIf="loginServ.isLogin()" routerLink="signup" >
+      <span>{{loginServ.returnUser().username}}</span>
+    </button> -->
+    <div *ngIf="isUserAct && username!=null">
+      <span>{{username.username}}</span>
+    </div>
+
+    <button mat-icon-button class="example-icon" aria-label="logout" data-toogle title="Logout"
+     [hidden]="!isUserAct" (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+  </mat-toolbar>
 </div>

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -42,7 +43,7 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.cors()
 		.disable()
 		.authorizeRequests()
-		.antMatchers("/token","/api/addUser").permitAll() //mention url for which authentication is not requird
+		.antMatchers("/token","/api/addUser","/api/getUserByEmail","/api/getRoleOfUser").permitAll() //mention url for which authentication is not requird
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -65,8 +66,8 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 	}
 
 	@Bean //Indicates that a method produces a bean to be managed by the Spring container. 
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean

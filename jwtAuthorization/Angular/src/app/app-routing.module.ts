@@ -5,6 +5,8 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
+import { AdminGuard } from './components/services/admin.guard';
+import { NormalGuard } from './components/services/normal.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +17,8 @@ const routes: Routes = [
   {
     path:"dashboard",
     component:DashboardComponent,
-    pathMatch:'full'
+    pathMatch:'full',
+    // canActivate:[AdminGuard]
   },
   {
     path:"login",
@@ -28,14 +31,22 @@ const routes: Routes = [
     pathMatch:'full'
   },
   {
-    path:"home",
+    path:"admin",
     component:HomeComponent,
-    pathMatch:'full'
+    // canActivate:[AdminGuard],
+    children:[
+      {
+        path:"admin_profile",
+        component:DashboardComponent,
+        pathMatch:'full',
+      }
+    ]
   },
   {
     path:"profile",
     component:ProfileComponent,
-    pathMatch:'full'
+    pathMatch:'full',
+    canActivate:[NormalGuard]
   }
 ];
 

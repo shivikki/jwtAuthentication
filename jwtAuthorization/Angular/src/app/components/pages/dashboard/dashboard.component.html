@@ -1,8 +1,43 @@
-<div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-4">
-        Menu
-    </div>
-    <div class="col-lg-8 col-md-8 col-sm-8">
-        Content
-    </div>
-</div>
+<mat-card>
+    <h1 class="text-center">Your Profile Details</h1>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 offset-md-1">
+              
+                <table  class="table">
+                    <tr>
+                        <td>Name </td>
+                        <td>{{currentUser.firstName +" " +currentUser.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Username </td>
+                        <td>{{currentUser.username}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email </td>
+                        <td>{{currentUser.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone </td>
+                        <td>{{currentUser.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td>Role </td>
+                        <td>{{role[0].roleName}}</td>
+                    </tr>
+
+                </table>
+
+
+
+
+            </div>
+            
+        </div>
+     
+    </mat-card-content>
+    <mat-card-actions  class="text-center">
+        <button mat-raised-button color="primary">Update</button>
+        <button mat-raised-button color="accent">Save</button>
+    </mat-card-actions>
+</mat-card>

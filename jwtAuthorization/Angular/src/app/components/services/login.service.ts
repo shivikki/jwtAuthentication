@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { baseUrl, getUserByEmail, token } from 'src/app/helper/api-constant';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class LoginService {
 
   public Roles: any;
   public CurrentUser:any;
+  public loginStatus:any=new Subject<boolean>(); //event handler
 
   constructor(private http: HttpClient) { }
 
@@ -72,6 +74,10 @@ export class LoginService {
 
   public setCurrentUser(user:any){
     this.CurrentUser=user;
+  }
+
+  public returnUser(){
+    return this.CurrentUser;
   }
 
 }

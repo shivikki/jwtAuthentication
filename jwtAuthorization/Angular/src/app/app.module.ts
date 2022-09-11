@@ -15,7 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/pages/home/home.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
-import { AuthInterceptor } from './components/services/authInterceptor';
+import { AuthInterceptor, AuthInterceptorProviders } from './components/services/authInterceptor';
+import { SidebarComponent } from './components/pages/sidebar/sidebar.component';
+
 
 
 
@@ -28,7 +30,8 @@ import { AuthInterceptor } from './components/services/authInterceptor';
     LoginComponent,
     HomeComponent,
     ProfileComponent,
-    DashboardComponent
+    DashboardComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { AuthInterceptor } from './components/services/authInterceptor';
     NgbModule
 
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
+  providers: [AuthInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

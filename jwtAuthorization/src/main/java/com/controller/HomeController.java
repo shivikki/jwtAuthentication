@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +28,9 @@ public class HomeController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCrypt;
 	
 	//make api private ie once user authenticated then only able to access api
 	@RequestMapping("/welcome")
@@ -58,7 +62,8 @@ public class HomeController {
 	@PostMapping("/addUser")
 	public ResultResponse addUser(@RequestBody User user) {
 		ResultResponse createUserResonse = new ResultResponse();
-
+		//encrpyt pwd
+		user.setPassword(this.bCrypt.encode(user.getPassword()));
 		// Normal User Role
 		Role role = new Role(102, "Normal");
 		List<Role> roleList = new ArrayList<>();
