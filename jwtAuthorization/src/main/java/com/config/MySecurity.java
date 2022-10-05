@@ -43,7 +43,8 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.cors()
 		.disable()
 		.authorizeRequests()
-		.antMatchers("/token","/api/addUser","/api/getUserByEmail","/api/getRoleOfUser").permitAll() //mention url for which authentication is not requird
+		.antMatchers("/token","/api/addUser","/api/getUserByEmail","/api/getRoleOfUser","/api/getAllCategory"
+				).permitAll() //mention url for which authentication is not requird
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
