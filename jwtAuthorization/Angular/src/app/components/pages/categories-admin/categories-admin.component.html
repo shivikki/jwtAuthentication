@@ -1,0 +1,77 @@
+<mat-card>
+    All Categories
+
+    <mat-list role="list" class="catList">
+        <mat-list-item *ngFor="let cat of allCategories">
+            <mat-icon mat-list-icon color="primary">folder</mat-icon>
+            <div mat-line>
+                <strong>{{cat.title}}</strong>
+                <button mat-raised-button color="accent" style="float: right;"
+                    (click)="editCategory(editCat,cat)">Edit</button>
+
+                <button mat-raised-button color="warn" style="float: right;" class="mx-3" 
+                (click)="deleteCategory(editCat,cat)">
+                Delete</button>
+            </div>
+            <div mat-line>{{cat.description}}</div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+
+    </mat-list>
+    <div class="container text-center mt-5" routerLink="/admin/add_categories">
+        <button mat-raised-button color="accent">Add New Category</button>
+    </div>
+
+</mat-card>
+
+<!--edit category popup-->
+<ng-template #editCat let-modal>
+    <div *ngIf="editFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">create</mat-icon> <span style="font-weight:bold">EDIT
+                CATEGORY</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Title</mat-label>
+                    <input matInput maxlength="45" placeholder="Enter category title" required name="updateTitle"
+                        [(ngModel)]="updateCat.title">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea rows="2" matInput maxlength="45" [(ngModel)]="updateCat.description"
+                        placeholder="Enter category description" name="updateDesc" required>
+                    </textarea>
+                </mat-form-field>
+            </form>
+
+        </div>
+        <div class="container">
+            <button type="button" mat-raised-button color="warn" style="float: left"
+                (click)="modal.close('Save click')">Cancel</button>
+            <button type="button" style="float: right" mat-raised-button color="accent"
+                (click)="saveCat()">Update</button>
+        </div>
+        <br><br><br>
+    </div>
+    <div *ngIf="!editFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">delete</mat-icon> <span style="font-weight:bold">
+            DELETE CATEGORY :</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            Are you Sure you want to delete category - <strong>{{updateCat.title}}</strong>
+
+        </div>
+        <div class="container">
+            <button type="button" mat-raised-button color="warn" style="float: left"
+                (click)="modal.close('Save click')">Cancel</button>
+            <button type="button" style="float: right" mat-raised-button color="accent"
+                (click)="submitDeleteCategory()">Delete</button>
+        </div>
+        <br><br><br>
+    </div>
+</ng-template>

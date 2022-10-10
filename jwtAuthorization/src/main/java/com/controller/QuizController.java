@@ -37,9 +37,8 @@ public class QuizController {
 	}
 	
 	@PostMapping("/addNewQuiz")
-	public Quiz addQuiz(@RequestBody Quiz quiz) {
-		quiz = quizService.addQuiz(quiz);
-		return quiz;
+	public ResultResponse addQuiz(@RequestBody Quiz quiz) {
+		return quizService.addQuiz(quiz);
 	}
 	
 	@PostMapping("/addQuizToCat")

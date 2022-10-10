@@ -30,33 +30,29 @@ public class QuizDaoImpl implements QuizDao {
 	private CategoryDaoImpl categoryDao;
 
 	@Override
-	public Quiz addQuiz(Quiz quiz) {
+	public ResultResponse addQuiz(Quiz quiz) {
 		LOG.info("inside addQuiz m/d start");
-
+		ResultResponse output=new ResultResponse();
 		// add quiz then add to category
 		List<Quiz> quizExist = quizExist(quiz);
 		if (quizExist.size() > 0) {
-			quiz.setDescription("Quiz already exists with this name");
-			quiz.setTitle("EXIST");
-			quiz.setMax_marks(0);
-			quiz.setNoOfQues(0);
-			return quiz;
+			output.setValidationFlag(true);
+			output.setValidationStatus("Question alredy exist");
+			return output;
 		} else {
 			try {
 				int result = jdbcTemplate.update(QueryConstant.INSERT_NEW_QUIZ, quiz.getTitle(), quiz.getDescription(),
 						quiz.getMax_marks(), quiz.getNoOfQues(), quiz.isEnabled());
 				if (result > 0) {
-					quiz.setDescription("Quiz added successfully");
-					quiz.setTitle("SUCCESS");
-					quiz.setMax_marks(0);
-					quiz.setNoOfQues(0);
-					return quiz;
+					
+					output=addQuizToCategory(quiz);
+					return output;
 				}
 
 			} catch (Exception e) {
 				LOG.error("error in addQuiz m/d" + e);
 			}
-			return quiz;
+			return output;
 		}
 
 	}
@@ -165,15 +161,15 @@ public class QuizDaoImpl implements QuizDao {
 		ResultResponse response = new ResultResponse();
 		LOG.info("inside addQuizToCategory m/d start");
 		try {
-			Quiz getQuiz = getQuizById(quiz.getQuizId());
+			List<Quiz> getQuiz = quizExist(quiz);
 			Category category = categoryDao.getCategoryById(quiz.getCatId());
 
-			if (getQuiz != null && category != null) {
+			if (getQuiz.size()>0 && category != null) {
 				List<Map<String, Object>> quiz_cat = jdbcTemplate.queryForList(QueryConstant.CHECK_QUIZ_CAT_MAP,
-						quiz.getCatId(), quiz.getQuizId());
+						quiz.getCatId(), getQuiz.get(0).getQuizId());
 				if (quiz_cat.isEmpty()) {
 					int result = jdbcTemplate.update(QueryConstant.MAP_QUIZ_CATEGORY, quiz.getCatId(),
-							quiz.getQuizId());
+							 getQuiz.get(0).getQuizId());
 
 					if (result > 0) {
 						response.setValidationStatus("Quiz added to selected category");

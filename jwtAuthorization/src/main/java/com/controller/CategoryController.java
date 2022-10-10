@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.modal.Category;
@@ -53,8 +54,8 @@ public class CategoryController {
 		return category;
 	}
 	
-	@DeleteMapping("/deleteCategory/{id}")
-	public ResultResponse deleteCategory(@PathVariable int id) {
+	@PostMapping("/deleteCategory")
+	public ResultResponse deleteCategory(@RequestBody int id) {
 		ResultResponse resultResp=categoryService.deleteCategory(id);
 		
 		return resultResp;

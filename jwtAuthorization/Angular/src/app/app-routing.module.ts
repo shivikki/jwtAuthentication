@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddCategoriesAdminComponent } from './components/pages/add-categories-admin/add-categories-admin.component';
+import { AddQuizComponent } from './components/pages/admin/add-quiz/add-quiz.component';
+import { ManageQuizComponent } from './components/pages/admin/manage-quiz/manage-quiz.component';
+import { CategoriesAdminComponent } from './components/pages/categories-admin/categories-admin.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
@@ -38,6 +42,26 @@ const routes: Routes = [
       {
         path:"admin_profile",
         component:DashboardComponent,
+        pathMatch:'full',
+      },
+      {
+        path:"view_categories",
+        component:CategoriesAdminComponent,
+        pathMatch:'full',
+      },
+      {
+        path:"add_categories",
+        component:AddCategoriesAdminComponent,
+        pathMatch:'full',
+      },
+      {
+        path:"manage_quiz",
+        component:ManageQuizComponent,
+        pathMatch:'full',
+      },
+      {
+        path:"add_quiz",
+        component:AddQuizComponent,
         pathMatch:'full',
       }
     ]

@@ -1,0 +1,32 @@
+<mat-card>
+All quizes
+<mat-list role="list" class="catList">
+    <mat-list-item *ngFor="let quiz of allQuiz" style="height:100%">
+        <mat-icon mat-list-icon color="primary">folder</mat-icon>
+        <div mat-line class="mt-2">
+            <strong>{{quiz.title}}</strong>
+            <button mat-raised-button color="accent" style="float: right;"
+            (click)="editQuiz(quiz)">Edit</button>
+
+            <button mat-raised-button color="warn" style="float: right;" class="mx-3">
+            Delete</button>
+
+            <button mat-raised-button color="primary" style="float: right;" class="mx-3">
+            Add Questions</button>
+        </div>
+        <div mat-line>{{quiz.description}}</div>
+        <div mat-line class="my-1">
+            <button mat-stroked-button color="accent">{{"Max Marks " + quiz.max_marks}}</button>
+            <button mat-stroked-button color="accent" class="mx-2"> {{"Questions " + quiz.noOfQues}}</button>
+            <button mat-stroked-button color="accent" *ngIf="quiz.enabled" class="mx-2">Enable Quiz</button>
+            <button mat-stroked-button color="accent" *ngIf="!quiz.enabled" class="mx-2">Disable Quiz</button>
+        </div>
+        
+        <mat-divider></mat-divider><!--horizontal line-->
+    </mat-list-item>
+
+</mat-list>
+<div class="container text-center mt-5" routerLink="/admin/add_quiz">
+    <button mat-raised-button color="accent">Add New Quiz</button>
+</div>
+</mat-card>

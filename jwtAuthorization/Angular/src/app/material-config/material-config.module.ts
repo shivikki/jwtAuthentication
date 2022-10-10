@@ -8,7 +8,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 const materialConfig=[
   MatButtonModule,
   MatInputModule,
@@ -17,7 +19,10 @@ const materialConfig=[
   MatToolbarModule,
   MatListModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatSlideToggleModule,
+  MatExpansionModule,
+  MatAutocompleteModule
 ]
 
 @NgModule({
@@ -32,6 +37,9 @@ const materialConfig=[
     MatListModule,
     MatCardModule,
     MatTableModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatAutocompleteModule,
     materialConfig
     
   ],

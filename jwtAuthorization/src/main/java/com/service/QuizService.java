@@ -6,7 +6,7 @@ import com.modal.Quiz;
 import com.modal.ResultResponse;
 
 public interface QuizService {
-	public Quiz addQuiz(Quiz quiz);
+	public ResultResponse addQuiz(Quiz quiz);
 
 	public Quiz updateQuiz(Quiz quiz);
 

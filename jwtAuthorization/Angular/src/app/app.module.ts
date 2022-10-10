@@ -17,7 +17,12 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { AuthInterceptor, AuthInterceptorProviders } from './components/services/authInterceptor';
 import { SidebarComponent } from './components/pages/sidebar/sidebar.component';
-
+import { CategoriesAdminComponent } from './components/pages/categories-admin/categories-admin.component';
+import { AddCategoriesAdminComponent } from './components/pages/add-categories-admin/add-categories-admin.component';
+import { ManageQuizComponent } from './components/pages/admin/manage-quiz/manage-quiz.component';
+import { AddQuizComponent } from './components/pages/admin/add-quiz/add-quiz.component';
+ 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -31,7 +36,12 @@ import { SidebarComponent } from './components/pages/sidebar/sidebar.component';
     HomeComponent,
     ProfileComponent,
     DashboardComponent,
-    SidebarComponent
+    SidebarComponent,
+    CategoriesAdminComponent,
+    AddCategoriesAdminComponent,
+    ManageQuizComponent,
+    AddQuizComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -40,8 +50,8 @@ import { SidebarComponent } from './components/pages/sidebar/sidebar.component';
     MaterialConfigModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
-
+    NgbModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthInterceptorProviders],
   bootstrap: [AppComponent]

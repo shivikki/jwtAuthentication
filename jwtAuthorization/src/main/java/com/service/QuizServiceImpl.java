@@ -12,7 +12,7 @@ public class QuizServiceImpl implements QuizService{
 	@Autowired
 	private QuizDao quizDao;
 	@Override
-	public Quiz addQuiz(Quiz quiz) {
+	public ResultResponse addQuiz(Quiz quiz) {
 		return quizDao.addQuiz(quiz);
 	}
 

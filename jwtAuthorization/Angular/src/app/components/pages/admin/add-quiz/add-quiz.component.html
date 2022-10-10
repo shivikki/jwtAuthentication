@@ -1,0 +1,77 @@
+<mat-card>
+    <h1>Add New Quiz</h1>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 offset-1">
+            <form class="example-form text-center" (ngSubmit)="createQuiz()">
+                <mat-form-field class="example-full-width " appearance="fill">
+
+                    <mat-label>Title</mat-label>
+                    <input matInput #message maxlength="45" placeholder="Enter quiz title" name="title"
+                    [(ngModel)]="addCat.title" required>
+
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width " appearance="fill">
+
+                    <mat-label>Description</mat-label>
+                    <textarea matInput #message maxlength="45" placeholder="Enter quiz description" 
+                    [(ngModel)]="addCat.description" name="desc" required>
+                    </textarea>
+                </mat-form-field>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <mat-form-field class="example-full-width " appearance="fill">
+
+                            <mat-label>Number of questions</mat-label>
+                            <input matInput #message maxlength="45" type="number" name="noOfQues" minimum="1"
+                                maximum="100" [(ngModel)]="addCat.noOfQues">
+
+                        </mat-form-field>
+
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <mat-form-field class="example-full-width " appearance="fill">
+
+                            <mat-label>Maximum Marks</mat-label>
+                            <input matInput #message maxlength="45" type="number" name="maxMarks" minimum="1"
+                                maximum="1000" [(ngModel)]="addCat.max_marks" required>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <section class="example-section">
+                    <mat-slide-toggle class="example-margin" 
+                    [(ngModel)]="addCat. enabled"color="primary" [checked]="false" [disabled]="false" required
+                    name="enable">
+                        Enable Quiz
+                    </mat-slide-toggle>
+                </section>
+
+                <mat-form-field class="example-full-width" appearance="fill" style="max-height:200px ;">
+                    <mat-label>Select Category</mat-label>
+                      <input id="plain" [matAutocomplete]="autocomplete" matInput placeholder="Select category"
+                      [(ngModel)]="categorySel" name="categorySel" required (focus)="resetCat()">
+                    <mat-autocomplete #autocomplete="matAutocomplete" style="max-height:200px ;">
+                        <mat-option *ngFor = "let item of allCategories |filter:categorySel" (click)="selectCat(item)"
+                        >{{item.title}}</mat-option>
+                    </mat-autocomplete>
+                    
+                </mat-form-field>
+                <div class="container" *ngIf="valError" class="alertDiv my-2">
+                    {{valMsg}}
+                </div>
+
+                <div class="container my-2">
+                    <button mat-raised-button color="primary" style="float:left" type="submit">Create</button>
+                    <button mat-raised-button color="accent" style="float:right">Reset</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</mat-card>

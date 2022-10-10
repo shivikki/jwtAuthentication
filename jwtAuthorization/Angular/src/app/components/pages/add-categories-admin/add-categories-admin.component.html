@@ -1,0 +1,58 @@
+<mat-card>
+    <h1>Add new category : </h1>
+    <br>
+    <mat-card-content>
+        <form action="" #loginForm="ngForm" class="example-form" (ngSubmit)="submitCat(mymodal)">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput  maxlength="45" name="title" placeholder="Enter Title"
+                [(ngModel)]="submitCategory.title">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput  maxlength="45" name="description" 
+                placeholder="Enter Category Description" row="5" [(ngModel)]="submitCategory.description"></textarea>
+
+            </mat-form-field>
+
+            <br><br><br><br><br>
+            <div class="container">
+                <button mat-raised-button color="primary" type="submit">Add</button>
+                <button mat-raised-button color="accent" style="float:right" type="button"
+                (click)="reset()">Reset</button>
+            </div>
+            
+        </form>
+    </mat-card-content>
+</mat-card>
+
+ <!--modal (ng-template can be sed if ngb bootstrap installed)-->
+ <ng-template #mymodal let-modal>
+    <div *ngIf="!valFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">SUCCESS</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{result.description}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="primary" (click)="modal.close('Save click')">OK</button>
+        </div>
+    </div>
+
+
+    <div *ngIf="valFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="warn" class="mx-2">report_problem</mat-icon><span style="font-weight:bold">ALERT</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{result.description}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="warn" (click)="modal.close('Save click')">OK</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,34 @@
+.example-form {
+    min-width: 150px;
+    //max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 10px;
+}
+
+.dropdown-div{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.alertDiv{
+    background:#FFCCCB;
+    padding:5px;
+    display: flex;
+    float: left;
+    width:100%;
+    border-radius: 5px;
+}
