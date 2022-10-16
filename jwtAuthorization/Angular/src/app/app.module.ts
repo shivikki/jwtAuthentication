@@ -26,6 +26,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AddCategoriesAdminComponent,
     ManageQuizComponent,
     AddQuizComponent,
+   
+    
   
   ],
   imports: [
@@ -51,7 +55,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+   
   ],
   providers: [AuthInterceptorProviders],
   bootstrap: [AppComponent]

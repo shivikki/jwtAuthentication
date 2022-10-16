@@ -2,7 +2,7 @@
     <h1>Add New Quiz</h1>
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-10 offset-1">
-            <form class="example-form text-center" (ngSubmit)="createQuiz()">
+            <form class="example-form text-center" (ngSubmit)="createQuiz(mymodal)">
                 <mat-form-field class="example-full-width " appearance="fill">
 
                     <mat-label>Title</mat-label>
@@ -75,3 +75,32 @@
     </div>
 
 </mat-card>
+<!--modal (ng-template can be sed if ngb bootstrap installed)-->
+<ng-template #mymodal let-modal>
+    <div *ngIf="!valFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">SUCCESS</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{addQuizResult.validationStatus}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="primary" (click)="modal.close('Save click')">OK</button>
+        </div>
+    </div>
+
+
+    <div *ngIf="valFlag" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="warn" class="mx-2">report_problem</mat-icon><span style="font-weight:bold">ALERT</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{addQuizResult.validationStatus}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="warn" (click)="modal.close('Save click')">OK</button>
+        </div>
+    </div>
+</ng-template>

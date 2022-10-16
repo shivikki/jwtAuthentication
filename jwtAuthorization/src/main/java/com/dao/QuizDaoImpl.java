@@ -37,7 +37,7 @@ public class QuizDaoImpl implements QuizDao {
 		List<Quiz> quizExist = quizExist(quiz);
 		if (quizExist.size() > 0) {
 			output.setValidationFlag(true);
-			output.setValidationStatus("Question alredy exist");
+			output.setValidationStatus("Question already exist");
 			return output;
 		} else {
 			try {

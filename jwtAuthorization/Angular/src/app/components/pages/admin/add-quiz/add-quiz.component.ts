@@ -1,5 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { PostServiceService } from 'src/app/components/services/post-service.service';
@@ -25,8 +26,10 @@ export class AddQuizComponent implements OnInit {
   categorySel = '';
 
   public valError=false;
+  public valFlag=false;
   public valMsg='';
-  constructor(private apiPost: PostServiceService) {
+  public addQuizResult:any;
+  constructor(private apiPost: PostServiceService,private modalService:NgbModal) {
   }
 
 
@@ -55,9 +58,9 @@ export class AddQuizComponent implements OnInit {
     this.categorySel = '';
   }
 
-  createQuiz() {
+  createQuiz(mymodal:any) {
     console.log(this.addCat);
-    this.validateQuiz();
+    this.validateQuiz(mymodal);
   }
 
   getAllCategories() {
@@ -76,7 +79,7 @@ export class AddQuizComponent implements OnInit {
     )
   }
 
-  validateQuiz(){
+  validateQuiz(mymodal:any){
     this.valError=false;
     this.valMsg='';
 
@@ -96,6 +99,20 @@ export class AddQuizComponent implements OnInit {
     this.apiPost.postJsonPassData(this.addCat,addNewQuiz).subscribe(
       (data)=>{
         console.log(data,"submit");
+        this.addQuizResult=data;
+        if(this.addQuizResult.responseCode==1){
+          this.valFlag=false;
+
+        }
+        else{
+          this.valFlag=true;
+        }
+        this.modalService.open(mymodal,{
+          size:"md",
+          keyboard:true,
+          backdrop:"static",
+          centered:true
+        })
       },
       (error)=>{
         console.error(error);
