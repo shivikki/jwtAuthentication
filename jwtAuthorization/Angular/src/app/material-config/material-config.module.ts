@@ -11,6 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatPaginatorModule} from '@angular/material/paginator';
 const materialConfig=[
   MatButtonModule,
   MatInputModule,
@@ -40,6 +41,7 @@ const materialConfig=[
     MatSlideToggleModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
     materialConfig
     
   ],

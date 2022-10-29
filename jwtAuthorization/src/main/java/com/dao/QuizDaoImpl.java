@@ -32,7 +32,7 @@ public class QuizDaoImpl implements QuizDao {
 	@Override
 	public ResultResponse addQuiz(Quiz quiz) {
 		LOG.info("inside addQuiz m/d start");
-		ResultResponse output=new ResultResponse();
+		ResultResponse output = new ResultResponse();
 		// add quiz then add to category
 		List<Quiz> quizExist = quizExist(quiz);
 		if (quizExist.size() > 0) {
@@ -44,8 +44,8 @@ public class QuizDaoImpl implements QuizDao {
 				int result = jdbcTemplate.update(QueryConstant.INSERT_NEW_QUIZ, quiz.getTitle(), quiz.getDescription(),
 						quiz.getMax_marks(), quiz.getNoOfQues(), quiz.isEnabled());
 				if (result > 0) {
-					
-					output=addQuizToCategory(quiz);
+
+					output = addQuizToCategory(quiz);
 					return output;
 				}
 
@@ -64,7 +64,7 @@ public class QuizDaoImpl implements QuizDao {
 		try {
 
 			int result = jdbcTemplate.update(QueryConstant.UPDATE_QUIZ, quiz.getTitle(), quiz.getDescription(),
-					quiz.getMax_marks(), quiz.getNoOfQues(), quiz.isEnabled(),quiz.getQuizId());
+					quiz.getMax_marks(), quiz.getNoOfQues(), quiz.isEnabled(), quiz.getQuizId());
 			if (result > 0) {
 				quiz.setDescription("Quiz updated successfully.");
 				quiz.setTitle("SUCCESS");
@@ -82,7 +82,7 @@ public class QuizDaoImpl implements QuizDao {
 		} catch (Exception e) {
 			LOG.error("getQuiz m/d " + e);
 		}
-		
+
 		return quiz;
 
 	}
@@ -98,7 +98,13 @@ public class QuizDaoImpl implements QuizDao {
 			if (!quizData.isEmpty()) {
 				for (Map<String, Object> u : quizData) {
 					quiz = (Quiz) new MasterMapper().mapQuiz(u);
-					quizList.add(quiz);
+					List<Map<String, Object>> quizCatData = jdbcTemplate.queryForList(QueryConstant.GET_QUIZ_CAT_DTLS,quiz.getQuizId());
+					if(quizCatData.size()>0) {
+						quiz.setCatId((int) quizCatData.get(0).get("cid"));
+						quiz.setCategory((String) quizCatData.get(0).get("title"));
+						quizList.add(quiz);
+					}
+					
 				}
 				return quizList;
 			}
@@ -127,12 +133,6 @@ public class QuizDaoImpl implements QuizDao {
 			LOG.error("getQuizById m/d " + e);
 		}
 		return quiz;
-	}
-
-	@Override
-	public ResultResponse deleteQuiz(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public List<Quiz> quizExist(Quiz quiz) {
@@ -164,12 +164,12 @@ public class QuizDaoImpl implements QuizDao {
 			List<Quiz> getQuiz = quizExist(quiz);
 			Category category = categoryDao.getCategoryById(quiz.getCatId());
 
-			if (getQuiz.size()>0 && category != null) {
+			if (getQuiz.size() > 0 && category != null) {
 				List<Map<String, Object>> quiz_cat = jdbcTemplate.queryForList(QueryConstant.CHECK_QUIZ_CAT_MAP,
 						quiz.getCatId(), getQuiz.get(0).getQuizId());
 				if (quiz_cat.isEmpty()) {
 					int result = jdbcTemplate.update(QueryConstant.MAP_QUIZ_CATEGORY, quiz.getCatId(),
-							 getQuiz.get(0).getQuizId());
+							getQuiz.get(0).getQuizId());
 
 					if (result > 0) {
 						response.setValidationStatus("Quiz added to selected category");
@@ -192,6 +192,28 @@ public class QuizDaoImpl implements QuizDao {
 			LOG.error("getQuizById m/d " + e);
 		}
 		return response;
+	}
+
+	@Override
+	public ResultResponse deleteQuiz(Quiz quiz) {
+		ResultResponse result = new ResultResponse();
+		try {
+			int row = jdbcTemplate.update(QueryConstant.DELETE_QUIZ_CAT_BY_ID, quiz.getQuizId());
+			if (row > 0) {
+				row = jdbcTemplate.update(QueryConstant.DELETE_QUIZ_QUES_BY_ID, quiz.getQuizId());
+				row = jdbcTemplate.update(QueryConstant.DELETE_QUIZ_BY_ID, quiz.getQuizId());
+				result.setResponseCode(1);
+				result.setValidationStatus("Quiz :" + quiz.getTitle() + " deleted sucessfully !!!");
+			} else {
+				result.setResponseCode(0);
+				result.setValidationStatus("Quiz not exist");
+			}
+		} catch (Exception e) {
+			result.setResponseCode(0);
+			result.setValidationStatus("Something went wrong please try again later.");
+			LOG.error("Exception in deleteQuiz m/d" + e);
+		}
+		return result;
 	}
 
 }

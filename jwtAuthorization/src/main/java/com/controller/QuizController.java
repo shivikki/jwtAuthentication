@@ -17,7 +17,7 @@ import com.service.QuizService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class QuizController {
 	@Autowired
 	private QuizService quizService;
@@ -28,30 +28,38 @@ public class QuizController {
 		quiz = quizService.getQuizById(id);
 		return quiz;
 	}
-	
+
 	@GetMapping("/getAllQuiz")
 	public List<Quiz> getQuiz() {
 		List<Quiz> quizList = new ArrayList<>();
 		quizList = quizService.getQuiz();
 		return quizList;
 	}
-	
+
 	@PostMapping("/addNewQuiz")
 	public ResultResponse addQuiz(@RequestBody Quiz quiz) {
 		return quizService.addQuiz(quiz);
 	}
-	
+
 	@PostMapping("/addQuizToCat")
-	 ResultResponse addQuizToCategory(@RequestBody Quiz quiz) {
-		ResultResponse result=new ResultResponse();
-		result=quizService.addQuizToCategory(quiz);
+	ResultResponse addQuizToCategory(@RequestBody Quiz quiz) {
+		ResultResponse result = new ResultResponse();
+		result = quizService.addQuizToCategory(quiz);
 		return result;
 	}
-	
+
 	@PostMapping("/updateQuiz")
 	public Quiz updateQuiz(@RequestBody Quiz quiz) {
-	
+
 		return quizService.updateQuiz(quiz);
 	}
+
+	@PostMapping("/deleteQuiz")
+	public ResultResponse deleteQuiz(@RequestBody Quiz quiz) {
+
+		return quizService.deleteQuiz(quiz);
+	}
 	
+	
+
 }

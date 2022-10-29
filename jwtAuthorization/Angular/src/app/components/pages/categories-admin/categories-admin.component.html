@@ -2,16 +2,16 @@
     All Categories
 
     <mat-list role="list" class="catList">
-        <mat-list-item *ngFor="let cat of allCategories">
+        <mat-list-item *ngFor="let cat of allCategories ">
             <mat-icon mat-list-icon color="primary">folder</mat-icon>
             <div mat-line>
                 <strong>{{cat.title}}</strong>
                 <button mat-raised-button color="accent" style="float: right;"
                     (click)="editCategory(editCat,cat)">Edit</button>
 
-                <button mat-raised-button color="warn" style="float: right;" class="mx-3" 
-                (click)="deleteCategory(editCat,cat)">
-                Delete</button>
+                <button mat-raised-button color="warn" style="float: right;" class="mx-3"
+                    (click)="deleteCategory(editCat,cat)">
+                    Delete</button>
             </div>
             <div mat-line>{{cat.description}}</div>
             <mat-divider></mat-divider>
@@ -21,6 +21,10 @@
     <div class="container text-center mt-5" routerLink="/admin/add_categories">
         <button mat-raised-button color="accent">Add New Category</button>
     </div>
+
+    <ngb-pagination [collectionSize]="allCategories.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+
+    </ngb-pagination>
 
 </mat-card>
 
@@ -59,7 +63,7 @@
     <div *ngIf="!editFlag" class="mt-2">
         <div style="display:flex">
             <mat-icon color="primary" class="mx-2">delete</mat-icon> <span style="font-weight:bold">
-            DELETE CATEGORY :</span>
+                DELETE CATEGORY :</span>
         </div>
         <hr>
         <div class="modal-body">

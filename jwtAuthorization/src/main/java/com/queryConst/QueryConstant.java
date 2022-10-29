@@ -31,11 +31,16 @@ public class QueryConstant {
 	
 	public static final String UPDATE_CATEGORY="update exam.category set title=?, description=? where title=?;";
 	
+	//quiz queries
 	public static final String DELETE_CATEGORY="delete from exam.category where cid=?;";
 	
 	public static final String GET_QUIZ_BY_ID="select * from exam.quiz where quiz_id=?;";
 	
 	public static final String GET_ALL_QUIZ="select * from exam.quiz;";
+	
+	public static final String GET_QUIZ_CAT_DTLS="select cat.cid,cat.title from exam.category cat where cid in (\r\n"
+			+ "select cid from  exam.quiz_category  where quiz_id=?\r\n"
+			+ ");";
 	
 	public static final String CHECK_QUIZ_EXIST="select * from exam.quiz where title=?;";
 	
@@ -47,6 +52,11 @@ public class QueryConstant {
 	
 	public static final String UPDATE_QUIZ="update exam.quiz set title=?, description=?, max_marks=?, no_of_ques=?, enable=? where quiz_id=?";
 	
+	public static final String DELETE_QUIZ_CAT_BY_ID="delete from exam.quiz_category where quiz_id=?;";
+	
+	public static final String DELETE_QUIZ_QUES_BY_ID="delete from exam.quiz_question where quizz_id=?;";
+	
+	public static final String DELETE_QUIZ_BY_ID="delete from exam.quiz where quiz_id=?;";
 	//queries for question
 	public static final String GET_QUES_BY_ID="select * from exam.question where ques_id in (?);";
 	

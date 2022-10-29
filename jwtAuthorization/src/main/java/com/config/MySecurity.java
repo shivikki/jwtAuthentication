@@ -45,7 +45,7 @@ public class MySecurity extends WebSecurityConfigurerAdapter{//2 imports
 		.authorizeRequests()
 		.antMatchers("/token","/api/addUser","/api/getUserByEmail","/api/getRoleOfUser","/api/getAllCategory"
 				,"/api/addNewCategory","/api/updateCategory",
-		"/api/deleteCategory","/api/getAllQuiz","/api/addNewQuiz").permitAll() //mention url for which authentication is not requird
+		"/api/deleteCategory","/api/getAllQuiz","/api/addNewQuiz","/api/deleteQuiz","/api/updateQuiz").permitAll() //mention url for which authentication is not requird
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

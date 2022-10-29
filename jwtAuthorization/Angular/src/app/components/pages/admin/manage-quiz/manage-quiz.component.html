@@ -1,32 +1,149 @@
 <mat-card>
-All quizes
-<mat-list role="list" class="catList">
-    <mat-list-item *ngFor="let quiz of allQuiz" style="height:100%">
-        <mat-icon mat-list-icon color="primary">folder</mat-icon>
-        <div mat-line class="mt-2">
-            <strong>{{quiz.title}}</strong>
-            <button mat-raised-button color="accent" style="float: right;"
-            (click)="editQuiz(quiz)">Edit</button>
+    All quizes
+    <mat-list role="list" class="catList">
+        <mat-list-item *ngFor="let quiz of allQuiz" style="height:100%">
+            <mat-icon mat-list-icon color="primary">folder</mat-icon>
+            <div mat-line class="mt-2">
+                <strong>{{quiz.title}}</strong>
+                <button mat-raised-button color="accent" style="float: right;"
+                    (click)="editQuiz(quiz,editQuizPop)">Edit</button>
 
-            <button mat-raised-button color="warn" style="float: right;" class="mx-3">
-            Delete</button>
+                <button mat-raised-button color="warn" style="float: right;" class="mx-3"
+                    (click)="deleteQuiz(quiz,mymodal)">
+                    Delete</button>
 
-            <button mat-raised-button color="primary" style="float: right;" class="mx-3">
-            Add Questions</button>
-        </div>
-        <div mat-line>{{quiz.description}}</div>
-        <div mat-line class="my-1">
-            <button mat-stroked-button color="accent">{{"Max Marks " + quiz.max_marks}}</button>
-            <button mat-stroked-button color="accent" class="mx-2"> {{"Questions " + quiz.noOfQues}}</button>
-            <button mat-stroked-button color="accent" *ngIf="quiz.enabled" class="mx-2">Enable Quiz</button>
-            <button mat-stroked-button color="accent" *ngIf="!quiz.enabled" class="mx-2">Disable Quiz</button>
-        </div>
-        
-        <mat-divider></mat-divider><!--horizontal line-->
-    </mat-list-item>
+                <button mat-raised-button color="primary" style="float: right;" class="mx-3">
+                    Add Questions</button>
+            </div>
+            <div mat-line>{{quiz.description}}</div>
+            <div mat-line class="my-1">
+                <button mat-stroked-button color="accent">{{"Max Marks " + quiz.max_marks}}</button>
+                <button mat-stroked-button color="accent" class="mx-2"> {{"Questions " + quiz.noOfQues}}</button>
+                <button mat-stroked-button color="accent"*ngIf="quiz.enabled" class="mx-2">{{"Enabled"}}</button>
+                <button mat-stroked-button color="accent"*ngIf="!quiz.enabled" class="mx-2">{{"Disabled"}}</button>
+                <button mat-stroked-button color="accent"  class="mx-2">{{quiz.category}}</button>
+            </div>
 
-</mat-list>
-<div class="container text-center mt-5" routerLink="/admin/add_quiz">
-    <button mat-raised-button color="accent">Add New Quiz</button>
-</div>
+            <mat-divider></mat-divider>
+            <!--horizontal line-->
+        </mat-list-item>
+
+    </mat-list>
+    <div class="container text-center mt-5" routerLink="/admin/add_quiz">
+        <button mat-raised-button color="accent">Add New Quiz</button>
+    </div>
 </mat-card>
+
+<!--modal (ng-template can be sed if ngb bootstrap installed)-->
+<ng-template #mymodal let-modal>
+    <div *ngIf="successModal" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">SUCCESS</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{result.validationStatus}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="primary" (click)="modal.close('Save click')">OK</button>
+        </div>
+    </div>
+
+
+    <div *ngIf="!successModal" class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="warn" class="mx-2">report_problem</mat-icon><span style="font-weight:bold">ALERT</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            {{result.validationStatus}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" mat-raised-button color="warn" (click)="closeModal()">OK</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<!--Edit Modal-->
+<ng-template #editQuizPop let-modal>
+    <div class="mt-2">
+        <div style="display:flex">
+            <mat-icon color="primary" class="mx-2">verified</mat-icon> <span style="font-weight:bold">EDIT QUIZ:</span>
+        </div>
+        <hr>
+        <mat-card>
+
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-10 offset-1">
+                    <form class="example-form ">
+                        <mat-form-field class="example-full-width " appearance="fill">
+
+                            <mat-label>Title</mat-label>
+                            <input matInput #message maxlength="45" placeholder="Enter quiz title" name="title"
+                                [(ngModel)]="updateQuiz.title" required>
+
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width " appearance="fill">
+
+                            <mat-label>Description</mat-label>
+                            <textarea matInput #message maxlength="45" placeholder="Enter quiz description"
+                                [(ngModel)]="updateQuiz.description" name="desc" required>
+                            </textarea>
+                        </mat-form-field>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <mat-form-field class="example-full-width " appearance="fill">
+
+                                    <mat-label>Number of questions</mat-label>
+                                    <input matInput #message maxlength="45" type="number" name="noOfQues" minimum="1"
+                                        maximum="100" [(ngModel)]="updateQuiz.noOfQues">
+
+                                </mat-form-field>
+
+
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <mat-form-field class="example-full-width " appearance="fill">
+
+                                    <mat-label>Maximum Marks</mat-label>
+                                    <input matInput #message maxlength="45" type="number" name="maxMarks" minimum="1"
+                                        maximum="1000" [(ngModel)]="updateQuiz.max_marks" required>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <section class="example-section">
+                            <mat-slide-toggle class="example-margin" [(ngModel)]="updateQuiz.enabled" color="primary"
+                                [checked]="false" [disabled]="false" required name="enable">
+                                Enable Quiz
+                            </mat-slide-toggle>
+                        </section>
+
+                        
+                        <br><br>
+                        <div class="container" *ngIf="valError" class="alertDiv my-2" style="color:red">
+                         Please fill all the mandatory details.
+                        </div>
+
+                        <div class="container my-2">
+                            <button mat-raised-button color="primary" style="float:left" type="submit"
+                            (click)="updateFinal(mymodal)">Update</button>
+                            <button mat-raised-button color="warn" style="float:right" (click)="closeModal()">Cancel</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </mat-card>
+        
+    </div>
+
+
+
+</ng-template>

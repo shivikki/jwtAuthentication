@@ -9,6 +9,15 @@ public class Quiz {
 	private int noOfQues;
 	private boolean enabled = false; // by default fALSE ..admin has to publish quiz
 	private int catId;
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public Quiz() {
 		super();

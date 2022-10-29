@@ -13,8 +13,8 @@ public interface QuizService {
 	public List<Quiz> getQuiz();
 
 	public Quiz getQuizById(int id);
-
-	public ResultResponse deleteQuiz(int id);
 	
 	public ResultResponse addQuizToCategory(Quiz quiz);
+	
+	public ResultResponse deleteQuiz(Quiz quiz);
 }

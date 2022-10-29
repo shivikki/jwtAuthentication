@@ -31,14 +31,15 @@ public class QuizServiceImpl implements QuizService{
 		return quizDao.getQuizById(id);
 	}
 
-	@Override
-	public ResultResponse deleteQuiz(int id) {
-		return quizDao.deleteQuiz(id);
-	}
+	
 
 	@Override
 	public ResultResponse addQuizToCategory(Quiz quiz) {
 		return quizDao.addQuizToCategory(quiz);
+	}
+	@Override
+	public ResultResponse deleteQuiz(Quiz quiz) {
+		return quizDao.deleteQuiz(quiz);
 	}
 
 }

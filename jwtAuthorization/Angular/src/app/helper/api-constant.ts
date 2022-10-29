@@ -17,4 +17,6 @@ export const deleteCategory="/api/deleteCategory"
 //quiz rest call
 export const getAllQuiz="/api/getAllQuiz"
 export const addNewQuiz="/api/addNewQuiz"
+export const deleteQuiz="/api/deleteQuiz"
+export const updateQuiz="/api/updateQuiz"
 
